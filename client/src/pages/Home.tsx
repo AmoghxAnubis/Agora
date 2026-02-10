@@ -4,6 +4,45 @@ import { Code2, ArrowRight, Zap, Database, Shield, Terminal, MoveRight } from 'l
 import { useRef } from 'react';
 import ThemeToggle from '../components/ThemeToggle';
 
+const FeatureBlock = ({ icon, title, desc }: { icon: any, title: string, desc: string }) => (
+    <div className="p-12 border-b border-black/5 dark:border-white/10 group hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+        <div className="mb-6 opacity-50 group-hover:opacity-100 transition-opacity">{icon}</div>
+        <h3 className="text-3xl font-bold mb-4 tracking-tight">{title}</h3>
+        <p className="text-xl text-gray-500 dark:text-gray-400 leading-relaxed max-w-md">
+            {desc}
+        </p>
+    </div>
+);
+
+const StatBox = ({ label, value }: { label: string, value: string }) => (
+    <div className="p-12 text-center hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+        <div className="text-4xl md:text-5xl font-bold mb-2 tracking-tighter">{value}</div>
+        <div className="text-xs font-mono uppercase tracking-widest opacity-50">{label}</div>
+    </div>
+);
+
+const Step = ({ number, title, text }: { number: string, title: string, text: string }) => (
+    <div className="group">
+        <div className="text-xs font-mono mb-4 opacity-50 border-b border-current pb-2 w-fit">{number}</div>
+        <h3 className="text-3xl font-bold mb-4 group-hover:pl-4 transition-all">{title}</h3>
+        <p className="text-gray-500 dark:text-gray-400 max-w-xs">{text}</p>
+    </div>
+);
+
+const TechSpecBlock = ({ title, specs }: { title: string, specs: { label: string, value: string }[] }) => (
+    <div className="p-12 hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+        <h3 className="font-mono text-xs font-bold uppercase tracking-widest mb-8 opacity-50">{title}</h3>
+        <ul className="space-y-4">
+            {specs.map((spec) => (
+                <li key={spec.label} className="flex items-center justify-between border-b border-black/5 dark:border-white/10 pb-2">
+                    <span className="text-sm font-medium opacity-60">{spec.label}</span>
+                    <span className="font-mono text-sm">{spec.value}</span>
+                </li>
+            ))}
+        </ul>
+    </div>
+);
+
 const Home = () => {
     const containerRef = useRef(null);
     const { scrollYProgress } = useScroll();
@@ -297,43 +336,4 @@ const Home = () => {
 
 // (No change needed in logic, just ensuring props are passed correctly)
 // Re-writing FeatureBlock to ensure it's clean
-const FeatureBlock = ({ icon, title, desc }: { icon: any, title: string, desc: string }) => (
-    <div className="p-12 border-b border-black/5 dark:border-white/10 group hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
-        <div className="mb-6 opacity-50 group-hover:opacity-100 transition-opacity">{icon}</div>
-        <h3 className="text-3xl font-bold mb-4 tracking-tight">{title}</h3>
-        <p className="text-xl text-gray-500 dark:text-gray-400 leading-relaxed max-w-md">
-            {desc}
-        </p>
-    </div>
-);
-
-const StatBox = ({ label, value }: { label: string, value: string }) => (
-    <div className="p-12 text-center hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
-        <div className="text-4xl md:text-5xl font-bold mb-2 tracking-tighter">{value}</div>
-        <div className="text-xs font-mono uppercase tracking-widest opacity-50">{label}</div>
-    </div>
-);
-
-const Step = ({ number, title, text }: { number: string, title: string, text: string }) => (
-    <div className="group">
-        <div className="text-xs font-mono mb-4 opacity-50 border-b border-current pb-2 w-fit">{number}</div>
-        <h3 className="text-3xl font-bold mb-4 group-hover:pl-4 transition-all">{title}</h3>
-        <p className="text-gray-500 dark:text-gray-400 max-w-xs">{text}</p>
-    </div>
-);
-
-const TechSpecBlock = ({ title, specs }: { title: string, specs: { label: string, value: string }[] }) => (
-    <div className="p-12 hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
-        <h3 className="font-mono text-xs font-bold uppercase tracking-widest mb-8 opacity-50">{title}</h3>
-        <ul className="space-y-4">
-            {specs.map((spec) => (
-                <li key={spec.label} className="flex items-center justify-between border-b border-black/5 dark:border-white/10 pb-2">
-                    <span className="text-sm font-medium opacity-60">{spec.label}</span>
-                    <span className="font-mono text-sm">{spec.value}</span>
-                </li>
-            ))}
-        </ul>
-    </div>
-);
-
 export default Home;
