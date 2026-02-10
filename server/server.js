@@ -29,10 +29,13 @@ io.on('connection', (socket) => {
         if (!rooms.has(roomId)) {
             rooms.set(roomId, new Map());
         }
-        rooms.get(roomId).set(socket.id, userData);
+
+        // Add socketId to userData
+        const userWithSocketId = { ...userData, socketId: socket.id };
+        rooms.get(roomId).set(socket.id, userWithSocketId);
 
         // Notify others in the room
-        socket.to(roomId).emit('user-joined', userData);
+        socket.to(roomId).emit('user-joined', userWithSocketId);
 
         // Send current users list to the new user
         const currentUsers = Array.from(rooms.get(roomId).values());
@@ -58,14 +61,17 @@ io.on('connection', (socket) => {
         }
     });
 
-    socket.on('disconnect', () => {
-        // Remove user from all rooms
-        rooms.forEach((users, roomId) => {
-            if (users.has(socket.id)) {
-                users.delete(socket.id);
-                io.to(roomId).emit('user-left', socket.id);
+    socket.on('disconnecting', () => {
+        // Remove user from all rooms they are part of
+        for (const roomId of socket.rooms) {
+            if (rooms.has(roomId)) {
+                rooms.get(roomId).delete(socket.id);
+                socket.to(roomId).emit('user-left', socket.id);
             }
-        });
+        }
+    });
+
+    socket.on('disconnect', () => {
         console.log('User disconnected:', socket.id);
     });
 });
