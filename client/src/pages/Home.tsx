@@ -184,38 +184,112 @@ const Home = () => {
                     </div>
                 </section >
 
+                {/* Technical Specs Grid */}
+                <section className="border-t border-black/5 dark:border-white/10">
+                    <div className="max-w-[1400px] mx-auto">
+                        <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-black/5 dark:divide-white/10">
+                            <TechSpecBlock
+                                title="RUNTIME"
+                                specs={[
+                                    { label: "Latency", value: "< 50ms" },
+                                    { label: "Uptime", value: "99.99%" },
+                                    { label: "Region", value: "Global Edge" }
+                                ]}
+                            />
+                            <TechSpecBlock
+                                title="SECURITY"
+                                specs={[
+                                    { label: "Encryption", value: "AES-256" },
+                                    { label: "Compliance", value: "SOC2 Ready" },
+                                    { label: "Auth", value: "OAuth 2.0" }
+                                ]}
+                            />
+                            <TechSpecBlock
+                                title="INFRASTRUCTURE"
+                                specs={[
+                                    { label: "Database", value: "PostgreSQL" },
+                                    { label: "Scaling", value: "Auto-elastic" },
+                                    { label: "Backup", value: "Continuous" }
+                                ]}
+                            />
+                        </div>
+                    </div>
+                </section>
+
                 {/* Minimal Timeline */}
-                < section id="how-it-works" className="py-32 px-6 max-w-[1400px] mx-auto" >
+                <section id="how-it-works" className="py-32 px-6 max-w-[1400px] mx-auto border-t border-black/5 dark:border-white/10">
                     <h2 className="text-4xl font-bold mb-20 tracking-tighter">THE WORKFLOW</h2>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-12 border-t border-black dark:border-white pt-12">
                         <Step number="01" title="Create" text="Spin up a fresh environment with one click. No provisioning required." />
                         <Step number="02" title="Invite" text="Share a secure link. Collaborators join instantly without sign-up." />
                         <Step number="03" title="Build" text="Write, debug, and ship together in real-time." />
                     </div>
-                </section >
+                </section>
+
+                {/* Manifesto Section */}
+                <section className="py-40 border-t border-black/5 dark:border-white/10 bg-black dark:bg-white text-white dark:text-black overflow-hidden relative">
+                    <div className="max-w-[1400px] mx-auto px-6 relative z-10">
+                        <h2 className="text-[8vw] leading-[0.9] font-bold tracking-tighter mb-12">
+                            CODE AT THE <br />
+                            SPEED OF THOUGHT.
+                        </h2>
+                        <p className="text-2xl md:text-3xl max-w-4xl opacity-80 leading-relaxed font-medium">
+                            We believe that collaboration shouldn't come at the cost of performance.
+                            Agora is built on the philosophy that your tools should be invisible,
+                            allowing you to enter a state of pure flow.
+                        </p>
+                    </div>
+                    {/* Decorative giant text */}
+                    <div className="absolute -bottom-20 -right-20 text-[20vw] font-bold opacity-5 pointer-events-none select-none tracking-tighter leading-none">
+                        FLOW
+                    </div>
+                </section>
 
                 {/* Footer */}
-                < footer className="bg-black dark:bg-white text-white dark:text-black py-20 px-6" >
-                    <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between gap-12">
-                        <div>
-                            <h2 className="text-[10vw] leading-none font-bold tracking-tighter opacity-20 hover:opacity-100 transition-opacity cursor-default">AGORA</h2>
+                <footer className="bg-white dark:bg-black text-black dark:text-white pt-32 pb-20 px-6 border-t border-black/5 dark:border-white/10">
+                    <div className="max-w-[1400px] mx-auto">
+                        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-32">
+                            <div className="md:col-span-2">
+                                <div className="flex items-center gap-2 font-bold tracking-tighter text-2xl mb-8">
+                                    <Code2 size={32} />
+                                    <span>AGORA</span>
+                                </div>
+                                <p className="text-lg max-w-md text-gray-500 dark:text-gray-400">
+                                    The new standard for collaborative development.
+                                    Built for teams who ship.
+                                </p>
+                            </div>
+                            <div>
+                                <h3 className="font-mono text-xs font-bold uppercase tracking-widest mb-8 opacity-50">Platform</h3>
+                                <ul className="space-y-4 text-sm font-medium">
+                                    <li><a href="#" className="hover:opacity-50 transition-opacity">Features</a></li>
+                                    <li><a href="#" className="hover:opacity-50 transition-opacity">Pricing</a></li>
+                                    <li><a href="#" className="hover:opacity-50 transition-opacity">Enterprise</a></li>
+                                    <li><Link to="/docs" className="hover:opacity-50 transition-opacity">Changelog</Link></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 className="font-mono text-xs font-bold uppercase tracking-widest mb-8 opacity-50">Company</h3>
+                                <ul className="space-y-4 text-sm font-medium">
+                                    <li><a href="#" className="hover:opacity-50 transition-opacity">About</a></li>
+                                    <li><a href="#" className="hover:opacity-50 transition-opacity">Blog</a></li>
+                                    <li><a href="#" className="hover:opacity-50 transition-opacity">Careers</a></li>
+                                    <li><a href="#" className="hover:opacity-50 transition-opacity">Contact</a></li>
+                                </ul>
+                            </div>
                         </div>
-                        <div className="grid grid-cols-2 gap-12 text-sm">
-                            <ul className="space-y-2">
-                                <li className="font-bold mb-4">PLATFORM</li>
-                                <li><a href="#" className="hover:underline">Features</a></li>
-                                <li><a href="#" className="hover:underline">Pricing</a></li>
-                                <li><Link to="/docs" className="hover:underline">Documentation</Link></li>
-                            </ul>
-                            <ul className="space-y-2">
-                                <li className="font-bold mb-4">LEGAL</li>
-                                <li><a href="#" className="hover:underline">Privacy</a></li>
-                                <li><a href="#" className="hover:underline">Terms</a></li>
-                                <li><a href="#" className="hover:underline">GitHub</a></li>
-                            </ul>
+
+                        <div className="border-t border-black/10 dark:border-white/10 pt-12 flex flex-col md:flex-row justify-between items-center gap-6 text-sm font-mono opacity-50">
+                            <div>© 2024 AGORA INC.</div>
+                            <div className="flex gap-8">
+                                <a href="#" className="hover:opacity-100 transition-opacity">PRIVACY</a>
+                                <a href="#" className="hover:opacity-100 transition-opacity">TERMS</a>
+                                <a href="#" className="hover:opacity-100 transition-opacity">TWITTER</a>
+                                <a href="#" className="hover:opacity-100 transition-opacity">GITHUB</a>
+                            </div>
                         </div>
                     </div>
-                </footer >
+                </footer>
             </main >
         </div >
     );
@@ -245,6 +319,20 @@ const Step = ({ number, title, text }: { number: string, title: string, text: st
         <div className="text-xs font-mono mb-4 opacity-50 border-b border-current pb-2 w-fit">{number}</div>
         <h3 className="text-3xl font-bold mb-4 group-hover:pl-4 transition-all">{title}</h3>
         <p className="text-gray-500 dark:text-gray-400 max-w-xs">{text}</p>
+    </div>
+);
+
+const TechSpecBlock = ({ title, specs }: { title: string, specs: { label: string, value: string }[] }) => (
+    <div className="p-12 hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+        <h3 className="font-mono text-xs font-bold uppercase tracking-widest mb-8 opacity-50">{title}</h3>
+        <ul className="space-y-4">
+            {specs.map((spec) => (
+                <li key={spec.label} className="flex items-center justify-between border-b border-black/5 dark:border-white/10 pb-2">
+                    <span className="text-sm font-medium opacity-60">{spec.label}</span>
+                    <span className="font-mono text-sm">{spec.value}</span>
+                </li>
+            ))}
+        </ul>
     </div>
 );
 
