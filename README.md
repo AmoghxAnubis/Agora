@@ -87,54 +87,11 @@ npm run dev
 
 ## Database Setup
 
-Run these SQL commands in your Supabase SQL editor:
+To set up the database schema and Row Level Security (RLS) policies, please run the contents of the `db_setup.sql` file included in this repository.
 
-```sql
--- Profiles table
-CREATE TABLE profiles (
-  id UUID REFERENCES auth.users PRIMARY KEY,
-  username TEXT UNIQUE NOT NULL,
-  avatar_url TEXT,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
-
--- Rooms table
-CREATE TABLE rooms (
-  room_id TEXT PRIMARY KEY,
-  owner_id UUID REFERENCES profiles(id),
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
-
--- Saved code table
-CREATE TABLE saved_code (
-  id SERIAL PRIMARY KEY,
-  room_id TEXT REFERENCES rooms(room_id) UNIQUE,
-  code_content TEXT,
-  language TEXT,
-  last_updated TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
-
--- Enable Row Level Security
-ALTER TABLE profiles ENABLE ROW LEVEL SECURITY;
-ALTER TABLE rooms ENABLE ROW LEVEL SECURITY;
-ALTER TABLE saved_code ENABLE ROW LEVEL SECURITY;
-
--- Policies
-CREATE POLICY "Users can view their own profile" ON profiles
-  FOR SELECT USING (auth.uid() = id);
-
-CREATE POLICY "Users can update their own profile" ON profiles
-  FOR UPDATE USING (auth.uid() = id);
-
-CREATE POLICY "Users can create rooms" ON rooms
-  FOR INSERT WITH CHECK (auth.uid() = owner_id);
-
-CREATE POLICY "Anyone can view rooms" ON rooms
-  FOR SELECT USING (true);
-
-CREATE POLICY "Authenticated users can save code" ON saved_code
-  FOR ALL USING (true);
-```
+1. Open `db_setup.sql`
+2. Copy all contents
+3. Paste and run in your Supabase project's SQL Editor
 
 ## Project Structure
 

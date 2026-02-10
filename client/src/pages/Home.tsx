@@ -48,8 +48,8 @@ const Home = () => {
                     <div className="max-w-[1400px] mx-auto w-full pt-20">
                         <motion.div style={{ y: heroTextY, opacity: heroOpacity }} className="relative z-10">
                             <h1 className="text-[12vw] leading-[0.8] font-bold tracking-tighter mb-8">
-                                CODE <br />
-                                <span className="ml-[10vw]">SYNC.</span>
+                                AGORA <br />
+                                <span className="ml-[10vw] text-[6vw] block">CODE SYNC.</span>
                             </h1>
                             <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 max-w-6xl ml-auto border-t border-black/10 dark:border-white/10 pt-8 mt-12">
                                 <p className="text-xl md:text-2xl max-w-xl font-medium leading-tight text-gray-500 dark:text-gray-400">
@@ -73,7 +73,7 @@ const Home = () => {
                             initial={{ opacity: 0, x: 100 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }}
-                            className="absolute top-0 right-0 hidden lg:block w-[400px] bg-white dark:bg-black border border-black/10 dark:border-white/10 rounded-lg shadow-2xl p-6 font-mono text-xs z-0 rotate-[-5deg] hover:rotate-0 transition-transform duration-500"
+                            className="absolute top-32 right-8 hidden lg:block w-[550px] bg-white dark:bg-black border border-black/10 dark:border-white/10 rounded-xl shadow-2xl p-8 font-mono text-sm z-20 rotate-[-5deg] hover:rotate-0 transition-transform duration-500"
                         >
                             <div className="flex gap-1.5 mb-4 opacity-30">
                                 <div className="w-2.5 h-2.5 rounded-full bg-current" />

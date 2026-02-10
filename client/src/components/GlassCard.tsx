@@ -1,6 +1,11 @@
 import { motion } from 'framer-motion';
 
-const GlassCard = ({ children, className = '' }) => (
+interface GlassCardProps {
+    children: React.ReactNode;
+    className?: string;
+}
+
+const GlassCard = ({ children, className = '' }: GlassCardProps) => (
     <motion.div
         whileHover={{ y: -5 }}
         transition={{ type: 'spring', stiffness: 400, damping: 30 }}

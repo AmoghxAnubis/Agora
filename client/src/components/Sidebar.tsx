@@ -1,8 +1,13 @@
 import { motion } from 'framer-motion';
-import { Users, X, Minus } from 'lucide-react';
+import { Users, Minus } from 'lucide-react';
 import { useState } from 'react';
 
-const Sidebar = ({ users, roomId }) => {
+interface SidebarProps {
+    users: { id: string; name: string; color: string }[];
+    roomId?: string;
+}
+
+const Sidebar = ({ users, roomId }: SidebarProps) => {
     const [isExpanded, setIsExpanded] = useState(true);
 
     return (

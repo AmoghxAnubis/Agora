@@ -6,9 +6,15 @@ import { Plus, LogOut, Code2 } from 'lucide-react';
 import GlassCard from '../components/GlassCard';
 import ThemeToggle from '../components/ThemeToggle';
 
+interface Room {
+    room_id: string;
+    owner_id: string;
+    created_at: string;
+}
+
 const Dashboard = () => {
-    const [user, setUser] = useState(null);
-    const [rooms, setRooms] = useState([]);
+    const [user, setUser] = useState<any>(null);
+    const [rooms, setRooms] = useState<Room[]>([]);
     const [roomId, setRoomId] = useState('');
     const navigate = useNavigate();
 
@@ -24,7 +30,7 @@ const Dashboard = () => {
         });
     }, [navigate]);
 
-    const loadRooms = async (userId) => {
+    const loadRooms = async (userId: string) => {
         const { data, error } = await supabase
             .from('rooms')
             .select('*')
