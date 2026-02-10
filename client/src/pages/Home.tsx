@@ -1,7 +1,7 @@
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Code2, ArrowRight, Globe, Zap, Database, Shield, Layout, Terminal, Cpu, MoveRight } from 'lucide-react';
-import { useState, useRef } from 'react';
+import { Code2, ArrowRight, Zap, Database, Shield, Terminal, MoveRight } from 'lucide-react';
+import { useRef } from 'react';
 import ThemeToggle from '../components/ThemeToggle';
 
 const Home = () => {

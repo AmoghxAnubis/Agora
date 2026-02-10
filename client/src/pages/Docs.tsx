@@ -5,19 +5,20 @@ import ThemeToggle from '../components/ThemeToggle';
 
 const Docs = () => {
     return (
-        <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white selection:bg-black/10 dark:selection:bg-white/20">
+        <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white selection:bg-black/10 dark:selection:bg-white/20 font-sans">
+            {/* Global Noise Texture */}
+            <div className="bg-noise fixed inset-0 z-50 pointer-events-none mix-blend-overlay opacity-50"></div>
+
             {/* Nav */}
-            <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-black/80 backdrop-blur-xl border-b border-black/5 dark:border-white/10">
-                <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <nav className="fixed top-0 inset-x-0 z-40 border-b border-black/5 dark:border-white/10 bg-white/80 dark:bg-black/80 backdrop-blur-md">
+                <div className="max-w-[1400px] mx-auto h-16 px-6 flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                        <Link to="/" className="p-2 hover:bg-black/5 dark:hover:bg-white/10 rounded-full transition-colors">
+                        <Link to="/" className="p-2 -ml-2 hover:bg-black/5 dark:hover:bg-white/10 rounded-full transition-colors">
                             <ArrowLeft size={20} />
                         </Link>
-                        <div className="flex items-center gap-2 font-semibold">
-                            <div className="bg-black dark:bg-white p-1 rounded-md text-white dark:text-black">
-                                <Code2 size={16} />
-                            </div>
-                            <span>Agora Docs</span>
+                        <div className="flex items-center gap-2 font-bold tracking-tighter text-xl">
+                            <Code2 size={24} />
+                            <span>AGORA DOCS</span>
                         </div>
                     </div>
                     <ThemeToggle />
