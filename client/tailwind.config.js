@@ -12,15 +12,15 @@ export default {
       },
       colors: {
         apple: {
-          blue: '#007AFF',
-          lightBlue: '#0A84FF',
+          blue: '#000000', // Changed to black for monochrome theme
           gray: '#F5F5F7',
-          dark: '#1C1C1E',
+          dark: '#000000', // Deep black
+          lightBlue: '#333333', // Dark gray for hover states
         }
       },
       boxShadow: {
-        'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.07)',
-        'glow': '0 0 20px rgba(0, 122, 255, 0.5)',
+        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.07)',
+        'glow': '0 0 20px rgba(0, 0, 0, 0.1)',
       },
       backdropBlur: {
         xs: '2px',

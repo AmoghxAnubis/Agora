@@ -30,9 +30,9 @@ const ThemeToggle = () => {
                 initial={false}
                 animate={{ rotate: isDark ? 180 : 0 }}
                 transition={{ type: 'spring', stiffness: 200, damping: 15 }}
-                className="relative z-10 text-gray-600 dark:text-gray-300"
+                className="relative z-10 text-black dark:text-white"
             >
-                {isDark ? <Moon size={18} fill="currentColor" className="text-apple-lightBlue" /> : <Sun size={18} fill="currentColor" className="text-orange-400" />}
+                {isDark ? <Moon size={18} fill="currentColor" /> : <Sun size={18} fill="currentColor" />}
             </motion.div>
         </motion.button>
     );

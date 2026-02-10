@@ -4,9 +4,9 @@
 
 @layer base {
   :root {
-    --background: #F5F5F7;
-    --surface: #FFFFFF;
-    --primary: #007AFF;
+    --background: #FFFFFF;
+    --surface: #F5F5F7;
+    --primary: #000000;
     --text-primary: #1D1D1F;
     --text-secondary: #86868B;
   }
@@ -14,7 +14,7 @@
   .dark {
     --background: #000000;
     --surface: #1C1C1E;
-    --primary: #0A84FF;
+    --primary: #FFFFFF;
     --text-primary: #F5F5F7;
     --text-secondary: #86868B;
   }
@@ -22,9 +22,7 @@
   body {
     background-color: var(--background);
     color: var(--text-primary);
-    font-family: 'SF Pro Display', 'Inter', system-ui, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    font-family: 'SF Pro Display', system-ui, sans-serif;
   }
 }
 
@@ -38,20 +36,21 @@
   }
 }
 
-@keyframes aurora {
+@keyframes blob {
   0% {
-    transform: translate(0, 0) scale(1);
-    opacity: 0.5;
+    transform: translate(0px, 0px) scale(1);
   }
 
-  50% {
-    transform: translate(20px, -20px) scale(1.1);
-    opacity: 0.8;
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
   }
 
   100% {
-    transform: translate(0, 0) scale(1);
-    opacity: 0.5;
+    transform: translate(0px, 0px) scale(1);
   }
 }
 
@@ -63,21 +62,23 @@
   height: 100vh;
   z-index: -1;
   overflow: hidden;
-  background: var(--background);
+  background: white;
+}
+
+.dark .aurora-bg {
+  background: black;
 }
 
 .aurora-blob {
   position: absolute;
-  filter: blur(80px);
   border-radius: 50%;
-  animation: aurora 10s infinite ease-in-out;
-  opacity: 0.5;
+  filter: blur(80px);
+  opacity: 0.6;
+  animation: blob 10s infinite;
+  z-index: -1;
 }
 
 .shimmer-text {
-  background: linear-gradient(90deg, #007AFF, #0A84FF, #60A5FA, #007AFF);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: shimmer 4s linear infinite;
 }
