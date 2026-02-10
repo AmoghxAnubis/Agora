@@ -5,21 +5,26 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { socket } from '../socket';
 import { supabase } from '../supabaseClient';
 import Sidebar from '../components/Sidebar';
-import { Save, Play, Copy } from 'lucide-react';
+import { Save, Copy } from 'lucide-react';
+
+interface User {
+    id: string;
+    name: string;
+    color: string;
+}
 
 const EditorPage = () => {
     const { roomId } = useParams();
     const [code, setCode] = useState('// Start coding...\n');
     const [language, setLanguage] = useState('javascript');
-    const [users, setUsers] = useState([]);
-    const [currentUser, setCurrentUser] = useState(null);
+    const [users, setUsers] = useState<User[]>([]);
     const [isSaved, setIsSaved] = useState(false);
-    const editorRef = useRef(null);
+    const editorRef = useRef<any>(null);
 
     useEffect(() => {
         // Get current user
         supabase.auth.getUser().then(({ data: { user } }) => {
-            setCurrentUser(user);
+
 
             // Load saved code
             loadCode();
@@ -65,7 +70,7 @@ const EditorPage = () => {
     }, [roomId]);
 
     const loadCode = async () => {
-        const { data, error } = await supabase
+        const { data } = await supabase
             .from('saved_code')
             .select('*')
             .eq('room_id', roomId)
@@ -77,10 +82,12 @@ const EditorPage = () => {
         }
     };
 
-    const handleEditorChange = (value) => {
-        setCode(value);
-        socket.emit('code-change', { roomId, code: value, language });
-        setIsSaved(false);
+    const handleEditorChange = (value: string | undefined) => {
+        if (value) {
+            setCode(value);
+            socket.emit('code-change', { roomId, code: value, language });
+            setIsSaved(false);
+        }
     };
 
     const handleSave = async () => {
@@ -100,7 +107,7 @@ const EditorPage = () => {
     };
 
     const copyRoomId = () => {
-        navigator.clipboard.writeText(roomId);
+        if (roomId) navigator.clipboard.writeText(roomId);
     };
 
     const getRandomColor = () => {

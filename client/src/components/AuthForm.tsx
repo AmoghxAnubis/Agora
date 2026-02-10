@@ -10,10 +10,10 @@ const AuthForm = () => {
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
+    const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError(null);
         setLoading(true);
@@ -50,8 +50,8 @@ const AuthForm = () => {
                 if (error) throw error;
                 navigate('/dashboard');
             }
-        } catch (error) {
-            setError(error.message);
+        } catch (error: any) {
+            setError(error.message || 'An error occurred');
         } finally {
             setLoading(false);
         }

@@ -65,24 +65,71 @@ const Home = () => {
                                     </Link>
                                 </div>
                             </div>
+
+                        </motion.div>
+
+                        {/* Floating Code Snippet */}
+                        <motion.div
+                            initial={{ opacity: 0, x: 100 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }}
+                            className="absolute top-0 right-0 hidden lg:block w-[400px] bg-white dark:bg-black border border-black/10 dark:border-white/10 rounded-lg shadow-2xl p-6 font-mono text-xs z-0 rotate-[-5deg] hover:rotate-0 transition-transform duration-500"
+                        >
+                            <div className="flex gap-1.5 mb-4 opacity-30">
+                                <div className="w-2.5 h-2.5 rounded-full bg-current" />
+                                <div className="w-2.5 h-2.5 rounded-full bg-current" />
+                                <div className="w-2.5 h-2.5 rounded-full bg-current" />
+                            </div>
+                            <div className="space-y-1 text-gray-500 dark:text-gray-400">
+                                <div><span className="text-black dark:text-white font-bold">function</span> <span className="text-black dark:text-white italic">collaborate</span>() {'{'}</div>
+                                <div className="pl-4">const users = await Agora.sync();</div>
+                                <div className="pl-4">return (</div>
+                                <div className="pl-8">&lt;<span className="text-black dark:text-white font-bold">Editor</span> </div>
+                                <div className="pl-12">mode="real-time"</div>
+                                <div className="pl-12">cursor=<span className="text-black dark:text-white">{'{'}true{'}'}</span></div>
+                                <div className="pl-8">/&gt;</div>
+                                <div className="pl-4">);</div>
+                                <div>{'}'}</div>
+                            </div>
+
+                            {/* Hovering Cursor */}
+                            <motion.div
+                                animate={{
+                                    x: [0, 50, 0],
+                                    y: [0, 20, 0]
+                                }}
+                                transition={{
+                                    duration: 4,
+                                    repeat: Infinity,
+                                    ease: "easeInOut"
+                                }}
+                                className="absolute bottom-10 right-10"
+                            >
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="text-black dark:text-white drop-shadow-lg transform rotate-[-15deg]">
+                                    <path d="M5.65376 12.3673H5.46026L5.31717 12.4976L0.500002 16.8829L0.500002 1.19169L11.7841 12.3673H5.65376Z" stroke="currentColor" strokeWidth="2" />
+                                </svg>
+                                <div className="absolute top-4 left-2 bg-black dark:bg-white text-white dark:text-black text-[10px] uppercase font-bold px-1.5 py-0.5 rounded-md tracking-wider">
+                                    YOU
+                                </div>
+                            </motion.div>
                         </motion.div>
                     </div>
 
                     {/* Abstract Decorative Elements */}
                     <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[30vw] h-[30vw] border border-black/5 dark:border-white/5 rounded-full pointer-events-none animate-spin-slow opacity-50" />
                     <div className="absolute left-[-10%] bottom-[-10%] w-[40vw] h-[40vw] border border-black/5 dark:border-white/5 rounded-full pointer-events-none animate-spin-slower opacity-30" />
-                </section>
+                </section >
 
                 {/* Marquee */}
-                <div className="border-b border-black/5 dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.02] overflow-hidden py-4">
+                < div className="border-b border-black/5 dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.02] overflow-hidden py-4" >
                     <div className="animate-marquee whitespace-nowrap flex items-center gap-12 text-4xl font-bold text-transparent stroke-text opacity-20">
                         <span>JAVASCRIPT</span> <span>TYPESCRIPT</span> <span>PYTHON</span> <span>RUST</span> <span>GO</span> <span>JAVA</span> <span>C++</span>
                         <span>JAVASCRIPT</span> <span>TYPESCRIPT</span> <span>PYTHON</span> <span>RUST</span> <span>GO</span> <span>JAVA</span> <span>C++</span>
                     </div>
-                </div>
+                </div >
 
                 {/* Sticky Scroll Features */}
-                <section id="features" className="max-w-[1400px] mx-auto px-6 py-32">
+                < section id="features" className="max-w-[1400px] mx-auto px-6 py-32" >
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
                         <div className="lg:sticky lg:top-32 h-fit">
                             <h2 className="text-6xl font-bold tracking-tighter mb-8">
@@ -125,30 +172,30 @@ const Home = () => {
                             />
                         </div>
                     </div>
-                </section>
+                </section >
 
                 {/* Large Grid "Swiss Style" Layout */}
-                <section className="border-t border-black/5 dark:border-white/10">
+                < section className="border-t border-black/5 dark:border-white/10" >
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-black/5 dark:divide-white/10 bg-black/[0.02] dark:bg-white/[0.02]">
                         <StatBox label="Active Users" value="10k+" />
                         <StatBox label="Lines of Code" value="50M+" />
                         <StatBox label="Countries" value="120+" />
                         <StatBox label="Uptime" value="99.9%" />
                     </div>
-                </section>
+                </section >
 
                 {/* Minimal Timeline */}
-                <section id="how-it-works" className="py-32 px-6 max-w-[1400px] mx-auto">
+                < section id="how-it-works" className="py-32 px-6 max-w-[1400px] mx-auto" >
                     <h2 className="text-4xl font-bold mb-20 tracking-tighter">THE WORKFLOW</h2>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-12 border-t border-black dark:border-white pt-12">
                         <Step number="01" title="Create" text="Spin up a fresh environment with one click. No provisioning required." />
                         <Step number="02" title="Invite" text="Share a secure link. Collaborators join instantly without sign-up." />
                         <Step number="03" title="Build" text="Write, debug, and ship together in real-time." />
                     </div>
-                </section>
+                </section >
 
                 {/* Footer */}
-                <footer className="bg-black dark:bg-white text-white dark:text-black py-20 px-6">
+                < footer className="bg-black dark:bg-white text-white dark:text-black py-20 px-6" >
                     <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between gap-12">
                         <div>
                             <h2 className="text-[10vw] leading-none font-bold tracking-tighter opacity-20 hover:opacity-100 transition-opacity cursor-default">AGORA</h2>
@@ -168,9 +215,9 @@ const Home = () => {
                             </ul>
                         </div>
                     </div>
-                </footer>
-            </main>
-        </div>
+                </footer >
+            </main >
+        </div >
     );
 };
 
