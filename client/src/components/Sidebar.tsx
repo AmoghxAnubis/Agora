@@ -16,7 +16,7 @@ const Sidebar = ({ users, roomId }) => {
                 >
                     <div className="flex items-center justify-between mb-6">
                         <h3 className="font-semibold flex items-center gap-2">
-                            <Users size={20} className="text-apple-blue" />
+                            <Users size={20} className="text-black dark:text-white" />
                             Active Users
                         </h3>
                         <motion.button
@@ -40,7 +40,7 @@ const Sidebar = ({ users, roomId }) => {
                             >
                                 <div
                                     className="w-8 h-8 rounded-full flex items-center justify-center text-white font-semibold"
-                                    style={{ backgroundColor: user.color || '#007AFF' }}
+                                    style={{ backgroundColor: user.color || '#333333' }}
                                 >
                                     {user.name?.[0]?.toUpperCase() || 'A'}
                                 </div>
@@ -69,7 +69,7 @@ const Sidebar = ({ users, roomId }) => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                 >
-                    <Users size={20} className="text-apple-blue" />
+                    <Users size={20} className="text-black dark:text-white" />
                 </motion.button>
             )}
         </>

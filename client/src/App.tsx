@@ -5,8 +5,8 @@ import type { Session } from '@supabase/supabase-js';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import EditorPage from './pages/EditorPage';
+import Docs from './pages/Docs';
 import AuthForm from './components/AuthForm';
-import './index.css';
 
 function App() {
   const [session, setSession] = useState<Session | null>(null);
@@ -39,6 +39,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/docs" element={<Docs />} />
         <Route path="/auth" element={!session ? <AuthForm /> : <Navigate to="/dashboard" />} />
         <Route path="/dashboard" element={session ? <Dashboard /> : <Navigate to="/auth" />} />
         <Route path="/room/:roomId" element={<EditorPage />} />
