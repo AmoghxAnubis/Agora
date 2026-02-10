@@ -1,0 +1,55 @@
+# Dependencies
+node_modules/
+package-lock.json # Optional: Keep if you want to lock versions, remove if using yarn.lock strictly
+yarn.lock         # Optional: Keep if using Yarn
+pnpm-lock.yaml    # Optional: Keep if using pnpm
+
+# Environment Variables (CRITICAL)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.example # Keep this un-ignored to share variable names without values
+
+# React / Frontend Build Output
+build/
+dist/
+.next/        # If using Next.js
+out/          # Next.js static export
+
+# Supabase CLI
+# If you are using the Supabase CLI for local dev
+supabase/.branches
+supabase/.temp
+supabase/functions/**/.env # Ignore env files inside edge functions
+
+# Backend / Node Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Testing & Coverage
+coverage/
+.nyc_output/
+
+# IDE & System Files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Optional: WebSocket specific logs
+# If your websocket implementation dumps generic logs to files
+ws-debug.log
+socket-errors.log
+
+# Miscellaneous
+.eslintcache
+.stylelintcache
