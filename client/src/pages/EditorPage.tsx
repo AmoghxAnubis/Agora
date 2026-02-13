@@ -1,7 +1,6 @@
 import Editor from '@monaco-editor/react';
 import { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { socket } from '../socket';
 import { supabase } from '../supabaseClient';
 import Sidebar from '../components/Sidebar';
@@ -11,6 +10,7 @@ interface User {
     id: string;
     name: string;
     color: string;
+    socketId?: string;
 }
 
 const EditorPage = () => {
@@ -21,65 +21,97 @@ const EditorPage = () => {
     const [isSaved, setIsSaved] = useState(false);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const editorRef = useRef<any>(null);
+    const currentUserRef = useRef<User | null>(null);
 
     useEffect(() => {
-        // Get current user
-        supabase.auth.getUser().then(({ data: { user } }) => {
+        let isMounted = true;
+
+        const loadCode = async () => {
+            const { data } = await supabase
+                .from('saved_code')
+                .select('*')
+                .eq('room_id', roomId)
+                .maybeSingle();
+
+            if (isMounted && data) {
+                setCode(data.code_content);
+                setLanguage(data.language);
+            }
+        };
+
+        const init = async () => {
+            const { data: { user } } = await supabase.auth.getUser();
+
+            if (!isMounted) return;
+
             // Load saved code
-            loadCode();
+            await loadCode();
 
             // Connect to socket
-            socket.connect();
+            if (!socket.connected) {
+                socket.connect();
+            }
+
+            const userData = {
+                id: user?.id || 'anonymous',
+                name: user?.user_metadata?.username || 'Anonymous',
+                color: getRandomColor()
+            };
+
+            currentUserRef.current = userData;
+
             socket.emit('join-room', {
                 roomId,
-                userData: {
-                    id: user?.id || 'anonymous',
-                    name: user?.user_metadata?.username || 'Anonymous',
-                    color: getRandomColor()
-                }
+                userData
             });
-        });
+        };
+
+        init();
 
         // Socket listeners
-        socket.on('room-users', (usersList) => {
-            setUsers(usersList);
-        });
+        const handleRoomUsers = (usersList: User[]) => {
+            if (isMounted) setUsers(usersList);
+        };
 
-        socket.on('user-joined', (userData) => {
-            setUsers(prev => [...prev, userData]);
-        });
+        const handleUserJoined = (userData: User) => {
+            if (isMounted) setUsers(prev => [...prev, userData]);
+        };
 
-        socket.on('user-left', (userId) => {
-            setUsers(prev => prev.filter(u => u.id !== userId));
-        });
+        const handleUserLeft = (socketId: string) => {
+            if (isMounted) setUsers(prev => prev.filter(u => u.socketId !== socketId));
+        };
 
-        socket.on('code-update', ({ code: newCode, language: newLang }) => {
-            setCode(newCode);
-            if (newLang) setLanguage(newLang);
-        });
+        const handleCodeUpdate = ({ code: newCode, language: newLang }: { code: string; language?: string }) => {
+            if (isMounted) {
+                setCode(newCode);
+                if (newLang) setLanguage(newLang);
+            }
+        };
+
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const handleCursorUpdate = ({ position, userId, userName, color }: any) => {
+            // TODO: Implement visual cursor rendering
+            // For now, we just acknowledge receipt of cursor updates
+            console.log(`Cursor update from ${userName} (${userId}):`, position, color);
+        };
+
+        socket.on('room-users', handleRoomUsers);
+        socket.on('user-joined', handleUserJoined);
+        socket.on('user-left', handleUserLeft);
+        socket.on('code-update', handleCodeUpdate);
+        socket.on('cursor-update', handleCursorUpdate);
 
         return () => {
+            isMounted = false;
             socket.emit('leave-room', roomId);
-            socket.off('room-users');
-            socket.off('user-joined');
-            socket.off('user-left');
-            socket.off('code-update');
+            socket.off('room-users', handleRoomUsers);
+            socket.off('user-joined', handleUserJoined);
+            socket.off('user-left', handleUserLeft);
+            socket.off('code-update', handleCodeUpdate);
+            socket.off('cursor-update', handleCursorUpdate);
             socket.disconnect();
         };
     }, [roomId]);
-
-    const loadCode = async () => {
-        const { data } = await supabase
-            .from('saved_code')
-            .select('*')
-            .eq('room_id', roomId)
-            .maybeSingle();
-
-        if (data) {
-            setCode(data.code_content);
-            setLanguage(data.language);
-        }
-    };
 
     const handleEditorChange = (value: string | undefined) => {
         if (value) {
@@ -114,8 +146,22 @@ const EditorPage = () => {
         return colors[Math.floor(Math.random() * colors.length)];
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleEditorDidMount = (editor: any) => {
         editorRef.current = editor;
+
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        editor.onDidChangeCursorPosition((e: any) => {
+            if (currentUserRef.current) {
+                socket.emit('cursor-move', {
+                    roomId,
+                    position: e.position,
+                    userId: currentUserRef.current.id,
+                    userName: currentUserRef.current.name,
+                    color: currentUserRef.current.color
+                });
+            }
+        });
     };
 
     return (
